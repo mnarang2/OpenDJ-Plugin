@@ -2,8 +2,8 @@
 OpenDJ Plugin for Dynatrace Saas/Managed
 
 # Purpose
-	This plugin is to provide metrics on the replication status of an OpenDJ system. 
-	It uses the paramiko library to ssh to the openDJ host and run the ldapsearch command to pull back metrics.  
+This plugin is to provide metrics on the replication status of an OpenDJ system. 
+It uses the paramiko library to ssh to the openDJ host and run the ldapsearch command to pull back metrics.  
 		  
 # Needed Changes in opendj-plugin.py
 	1.) Change hostName variable
@@ -27,15 +27,15 @@ OpenDJ Plugin for Dynatrace Saas/Managed
 	approximate-delay
 	
 # See this page for a description of the metrics
-	https://backstage.forgerock.com/knowledge/kb/article/a54492144#monitoring
+https://backstage.forgerock.com/knowledge/kb/article/a54492144#monitoring
 
 # Paramiko Documentation
-	http://docs.paramiko.org
-	https://github.com/paramiko/paramiko
+http://docs.paramiko.org
+https://github.com/paramiko/paramiko
 
 # For Dynatrace Plugin Information, please see these pages
-	## For Plugin Python Code questions
-	https://dynatrace.github.io/plugin-sdk/readme.html
+## For Plugin Python Code questions
+https://dynatrace.github.io/plugin-sdk/readme.html
 
-	## For Plugin.json questions
-	https://dynatrace.github.io/plugin-sdk/api/plugin_json_apidoc.html
+## For Plugin.json questions
+https://dynatrace.github.io/plugin-sdk/api/plugin_json_apidoc.html
