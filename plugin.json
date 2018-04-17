@@ -1,0 +1,92 @@
+{
+  "name": "custom.python.opendj-plugin",
+  "version": "0.1",
+  "type": "python",
+  "entity": "PROCESS_GROUP_INSTANCE",
+  "processTypeNames": ["JAVA"],
+  "source": {
+    "package": "opendj-plugin",
+    "className": "OpenDJPlugin",
+    "install_requires": ["paramiko>=2.4.1"],
+    "activation": "SnapshotEntry"
+  },
+  "metrics": [
+    {
+      "timeseries": {
+        "key": "lost-connections",
+        "unit": "Count",
+		"displayname": "Lost Connections"
+      }
+    },
+    {
+      "timeseries": {
+        "key": "received-updates",
+        "unit": "Count",
+		"displayname":"Received Updates"
+      }
+    },
+	{
+      "timeseries": {
+        "key": "sent-updates",
+        "unit": "Count",
+		"displayname":"Sent Updates"
+      }
+    },
+    {
+      "timeseries": {
+        "key": "replayed-updates",
+        "unit": "Count",
+		"displayname": "Replayed Updates"
+      }
+    },
+    {
+      "timeseries": {
+        "key": "pending-updates",
+        "unit": "Count",
+		"displayname":"Pending Updates"
+      }
+    },
+	{
+      "timeseries": {
+        "key": "replayed-updates-ok",
+        "unit": "Count",
+		"displayname":"Replayed Updates Ok"
+      }
+    },
+    {
+      "timeseries": {
+        "key": "resolved-modify-conflicts",
+        "unit": "Count",
+		"displayname":"Resolved Modify Conflicts"
+      }
+    },
+	{
+      "timeseries": {
+        "key": "resolved-naming-conflicts",
+        "unit": "Count",
+		"displayname":"Resolved Naming Conflicts"
+      }
+    },
+    {
+      "timeseries": {
+        "key": "unresolved-naming-conflicts",
+        "unit": "Count",
+		"displayname": "Unresolved Naming Conflicts"
+      }
+    },
+    {
+      "timeseries": {
+        "key": "missing-changes",
+        "unit": "Count",
+		"displayname":"Missing Changes"
+      }
+    },
+	{
+      "timeseries": {
+        "key": "approximate-delay",
+        "unit": "MilliSecond",
+		"displayname":"Approximate Delay"
+      }
+    }
+  ]
+}
