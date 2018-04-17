@@ -15,6 +15,8 @@ class OpenDJPlugin(BasePlugin):
 		pgi = self.find_single_process_group(pgi_name('<CHANGE TO OpenDJ PROCESSS>'))
 		pgi_id = pgi.group_instance_id
 		
+		#these are the metrics the values will be captured for
+		key_mapper = ["lost-connections", "received-updates", "sent-updates", "replayed-updates", "pending-updates", "replayed-updates-ok", "resolved-modify-conflicts", "resolved-naming-conflicts", "unresolved-naming-conflicts", "missing-changes", "approximate-delay"]
 		
 		#connect to host
 		client = paramiko.SSHClient()
@@ -33,38 +35,8 @@ class OpenDJPlugin(BasePlugin):
 			strArray = line.split(:)
 			measureValue = strArray[1].strip(' ')
 			
-			if strArray[0] == "lost-connections": 
-				self.results_builder.absolute(key='lost-connections', value=measureValue, entity_id=pgi_id) # send lost-connections measure
-				
-			elif strArray[0] == "received-updates":
-				self.results_builder.absolute(key='received-updates', value=measureValue, entity_id=pgi_id) # send received-updates measure
-				
-			elif strArray[0] == "sent-updates":
-				self.results_builder.absolute(key='sent-updates', value=measureValue, entity_id=pgi_id) # send sent-updates measure
-				
-			elif strArray[0] == "replayed-updates":
-				self.results_builder.absolute(key='replayed-updates', value=measureValue, entity_id=pgi_id) # send replayed-updates measure
-				
-			elif strArray[0] == "pending-updates":
-				self.results_builder.absolute(key='pending-updates', value=measureValue, entity_id=pgi_id) # send pending-updates measure
-				
-			elif strArray[0] == "replayed-updates-ok":
-				self.results_builder.absolute(key='replayed-updates-ok', value=measureValue, entity_id=pgi_id) # send replayed-updates-ok measure
-				
-			elif strArray[0] == "resolved-modify-conflicts":
-				self.results_builder.absolute(key='resolved-modify-conflicts', value=measureValue, entity_id=pgi_id) # send resolved-modify-conflicts measure
-				
-			elif strArray[0] == "resolved-naming-conflicts":
-				self.results_builder.absolute(key='resolved-naming-conflicts', value=measureValue, entity_id=pgi_id) # send resolved-naming-conflicts measure
-				
-			elif strArray[0] == "unresolved-naming-conflicts":
-				self.results_builder.absolute(key='unresolved-naming-conflicts', value=measureValue, entity_id=pgi_id) # send unresolved-naming-conflicts measure
-				
-			elif strArray[0] == "missing-changes":
-				self.results_builder.absolute(key='missing-changes', value=measureValue, entity_id=pgi_id) # send missing-changes measure
-				
-			elif strArray[0] == "approximate-delay":
-				self.results_builder.absolute(key='approximate-delay', value=measureValue, entity_id=pgi_id) # send approximate-delay measure
+			if strArray[0] in key_mapper
+				self.results_builder.absolute(key=strArray[0], value=measureValue, entity_id=pgi_id) # send measure
 		
 		client.close()
-
+		
