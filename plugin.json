@@ -1,6 +1,6 @@
 {
   "name": "custom.python.opendj-plugin",
-  "version": "0.1",
+  "version": "0.2",
   "type": "python",
   "entity": "PROCESS_GROUP_INSTANCE",
   "processTypeNames": ["JAVA"],
@@ -88,5 +88,38 @@
 		"displayname":"Approximate Delay"
       }
     }
-  ]
+  ],
+  {
+   "configUI" :{
+        "displayName": "OpenDJ Plugin",
+        "properties" : [
+            { "key" : "hostName", "displayName": "Host Name", "displayOrder": 1, "displayHint": "hostname.example.com" },
+            { "key" : "userName", "displayName": "User Name", "displayOrder": 2 },
+			{ "key" : "userPassword", "displayName": "User Password", "displayOrder": 3 },
+			{ "key" : "pathToKey", "displayName": "Linux Path To Private Key", "displayOrder": 4, "displayHint": "/home/user/private.pem" },
+			{ "key" : "hostKey", "displayName": "Base64 Host Key", "displayOrder": 5 },
+			{ "key" : "pathToLDAPSearch", "displayName": "Linux Path to ldapsearch executable", "displayOrder": 6, "displayHint": "/opt/opendj/" },
+			{ "key" : "ldapPort", "displayName": "LDAP Port", "displayOrder": 7, "displayHint": "1389" },
+			{ "key" : "bindDN", "displayName": "bindDN", "displayOrder": 8, "displayHint": "cn=Directory Manager" },
+			{ "key" : "bindPassword", "displayName": "Bind Password", "displayOrder": 9 },
+			{ "key" : "baseDN", "displayName": "baseDN", "displayOrder": 10, "displayHint": "cn=Replication,cn=monitor" },
+            { "key" : "domainName", "displayName": "Domain Name", "displayOrder": 11, "displayHint": "dc=example,dc=com" }
+                ]
+         }
+   },
+   {
+    "properties" : [
+        { "key" : "hostName", "type" :  "String", "defaultValue" : "hostname.example.com" },
+        { "key" : "userName", "type" :  "String" },
+		{ "key" : "userPassword", "type" :  "String" },
+		{ "key" : "pathToKey", "type" :  "String" },
+		{ "key" : "hostKey", "type" :  "String" },
+		{ "key" : "pathToLDAPSearch", "type" :  "String" },
+		{ "key" : "ldapPort", "type" :  "String" , "defaultValue" : "1389"},
+		{ "key" : "bindDN", "type" :  "String", "defaultValue" : "cn=Directory Manager" },
+		{ "key" : "bindPassword", "type" :  "String" },
+		{ "key" : "baseDN", "type" :  "String", "defaultValue" : "cn=Replication,cn=monitor" },
+		{ "key" : "domainName", "type" :  "String" }
+     ]
+   }
 }
