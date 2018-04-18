@@ -5,29 +5,60 @@ from ruxit.api.snapshot import pgi_name
 
 class OpenDJPlugin(BasePlugin):
 	def query(self, **kwargs):
-		#variables
-		hostName = #host running openDJ
-		userName = #user name to ssh with
-		userPassword = #password of user
-		key = paramiko.RSAKey(data=base64.b64decode(b'AAA...')) #base64 RSA host key for verification
+		#initialize variables
+		hostName = ""
+		userName = ""
+		userPassword = ""
+		pathToKey = ""
+		hostKey = ""
+		key = ""
+		
+		#add in variable values from kwargs
+		try:
+			if 'hostName' in kwargs:
+				hostName = kwargs['hostName']
+			if 'userName' in kwargs:
+				userName = kwargs['userName']
+			if 'userPassword' in kwargs:
+				userPassword = kwargs['userPassword']
+			if 'pathToKey' in kwargs:
+				pathToKey = kwargs['pathToKey']
+			if 'hostKey' in kwargs:
+				hostKey = kwargs['hostKey']
+			for item in kwargs.values():
+				print item
+		except:
+			print('There was an error with the parameters.')
 		
 		# Find Dynatrace pgi_id from oneAgent monitoring of OpenDJ
-		pgi = self.find_single_process_group(pgi_name('<CHANGE TO OpenDJ PROCESSS>'))
+		pgi = self.find_single_process_group(pgi_name('OpenDJ'))
 		pgi_id = pgi.group_instance_id
 		
 		#these are the metrics the values will be captured for
 		key_mapper = ["lost-connections", "received-updates", "sent-updates", "replayed-updates", "pending-updates", "replayed-updates-ok", "resolved-modify-conflicts", "resolved-naming-conflicts", "unresolved-naming-conflicts", "missing-changes", "approximate-delay"]
 		
 		#connect to host
-		client = paramiko.SSHClient()
-		client.get_host_keys().add(hostName, 'ssh-rsa', key)
-		client.connect(hostName, username=userName, password=userPassword)
+		client = paramiko.SSHClient()		
+		try:
+			if userName != "" and hostName != "":
+				if pathToKey != "":
+					#Using private keys to connect to host 
+					key = paramiko.RSAKey.from_private_key_file(pathToKey)
+					client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+					client.connect(hostname = hostName, username = userName, pkey = key)
+				elif userPassword != "" and hostKey != "":
+					##Using host key verification & password auth to connect
+					key = paramiko.RSAKey(data=base64.b64decode(hostKey)) #base64 RSA host key for verification
+					client.get_host_keys().add(hostName, 'ssh-rsa', key)
+					client.connect(hostName, username=userName, password=userPassword)
+			else 
+				print ('No User or Host provided - Could not Connect') 
+		except:
+			print('Generic Could not Connect to Host')
 		
-		#run command to switch to correct directory
-		client.exec_command('cd /path/to/ldapsearch')
-		
-		#run ldapsearch command and pipe all data to stdin, stdout, & stderr
-		stdin, stdout, stderr = client.exec_command('./ldapsearch --port 1389 --bindDN "cn=Directory Manager" --bindPassword password --baseDN "cn=Replication,cn=monitor" --searchScope sub "(&(objectClass=*)(domain-name=dc=example,dc=com))" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay')
+	
+		#first move to correct directory then run ldapsearch command and pipe all data to stdin, stdout, & stderr
+		stdin, stdout, stderr = client.exec_command('cd /path/to/ldapsearch ; ./ldapsearch --port 1389 --bindDN "cn=Directory Manager" --bindPassword password --baseDN "cn=Replication,cn=monitor" --searchScope sub "(&(objectClass=*)(domain-name=dc=example,dc=com))" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay')
 		
 		
 		#for each line check to see if it contains a wanted variable
