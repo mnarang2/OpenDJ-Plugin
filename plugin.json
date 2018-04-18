@@ -94,7 +94,7 @@
         "properties" : [
             { "key" : "hostName", "displayName": "Host Name", "displayOrder": 1, "displayHint": "hostname.example.com" },
             { "key" : "userName", "displayName": "User Name", "displayOrder": 2 },
-			{ "key" : "userPassword", "displayName": "User Password", "displayOrder": 3 },
+			{ "key" : "userPassword", "displayName": "User Password", "displayOrder": 3, "displayHint": "Leave Blank to use Private Key" },
 			{ "key" : "pathToKey", "displayName": "Linux Path To Private Key", "displayOrder": 4, "displayHint": "/home/user/private.pem" },
 			{ "key" : "hostKey", "displayName": "Base64 Host Key", "displayOrder": 5 },
 			{ "key" : "pathToLDAPSearch", "displayName": "Linux Path to ldapsearch executable", "displayOrder": 6, "displayHint": "/opt/opendj/" },
@@ -106,9 +106,9 @@
                 ]
    },
     "properties" : [
-        { "key" : "hostName", "type" :  "String", "defaultValue" : "hostname.example.com" },
+        { "key" : "hostName", "type" :  "String" },
         { "key" : "userName", "type" :  "String" },
-		{ "key" : "userPassword", "type" :  "String" },
+		{ "key" : "userPassword", "type" :  "PASSWORD" },
 		{ "key" : "pathToKey", "type" :  "String" },
 		{ "key" : "hostKey", "type" :  "String" },
 		{ "key" : "pathToLDAPSearch", "type" :  "String" },

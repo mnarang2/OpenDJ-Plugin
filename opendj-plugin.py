@@ -6,11 +6,11 @@ from ruxit.api.snapshot import pgi_name
 class OpenDJPlugin(BasePlugin):
 	def query(self, **kwargs):
 		#initialize variables
-		hostName = ""
-		userName = ""
-		userPassword = ""
+		hostName = "null"
+		userName = "null"
+		userPassword = "null"
 		pathToKey = ""
-		hostKey = ""
+		hostKey = "null"
 		key = ""
 		pathToLDAPSearch = ""
 		ldapPort = "1389"
@@ -60,13 +60,13 @@ class OpenDJPlugin(BasePlugin):
 		#connect to host
 		client = paramiko.SSHClient()
 		try:
-			if userName != "" and hostName != "":
+			if userName != "null" and hostName != "null":
 				if pathToKey != "":
 					#Using private keys to connect to host 
 					key = paramiko.RSAKey.from_private_key_file(pathToKey)
 					client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 					client.connect(hostname = hostName, username = userName, pkey = key)
-				elif userPassword != "" and hostKey != "":
+				elif userPassword != "null" and hostKey != "null":
 					##Using host key verification & password auth to connect
 					key = paramiko.RSAKey(data=base64.b64decode(hostKey)) #base64 RSA host key for verification
 					client.get_host_keys().add(hostName, 'ssh-rsa', key)
