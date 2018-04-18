@@ -12,6 +12,7 @@ It uses the paramiko library to ssh to the openDJ host and run the ldapsearch co
 	4.) Replace base64 version of the host key for verification purposes
 	5.) For pgi_id change the Process Name to OpenDJ Process
 	6.) Change path of "cd" linux command to correct location for ldapsearch 
+	7.) Make sure bindDN, baseDN and bindPassword are correct
 	
 # Metrics Provided 
 	lost-connections 
