@@ -19,32 +19,33 @@ class OpenDJPlugin(BasePlugin):
 		baseDN = "cn=Replication,cn=monitor"
 		domainName = "dc=example,dc=com"
 		
+		config = kwargs['config']
 		#add in variable values from kwargs
 		try:
-			if 'hostName' in kwargs:
-				hostName = kwargs['hostName']
-			if 'userName' in kwargs:
-				userName = kwargs['userName']
-			if 'userPassword' in kwargs:
-				userPassword = kwargs['userPassword']
-			if 'pathToKey' in kwargs:
-				pathToKey = kwargs['pathToKey']
-			if 'hostKey' in kwargs:
-				hostKey = kwargs['hostKey']
-			if 'pathToLDAPSearch' in kwargs:
-				pathToLDAPSearch = kwargs['pathToLDAPSearch']
-			if 'ldapPort' in kwargs:
-				ldapPort = kwargs['ldapPort']
-			if bindDN in kwargs:
-				bindDN = kwargs['bindDN']
-			if bindPassword in kwargs:
-				bindPassword = kwargs['bindPassword']
-			if baseDN in kwargs: 
-				baseDN = kwargs['baseDN']
-			if domainName in kwargs:
-				domainName = kwargs['domainName']
+			if 'hostName' in config:
+				hostName = config['hostName']
+			if 'userName' in config:
+				userName = config['userName']
+			if 'userPassword' in config:
+				userPassword = config['userPassword']
+			if 'pathToKey' in config:
+				pathToKey = config['pathToKey']
+			if 'hostKey' in config:
+				hostKey = config['hostKey']
+			if 'pathToLDAPSearch' in config:
+				pathToLDAPSearch = config['pathToLDAPSearch']
+			if 'ldapPort' in config:
+				ldapPort = config['ldapPort']
+			if bindDN in config:
+				bindDN = config['bindDN']
+			if bindPassword in config:
+				bindPassword = config['bindPassword']
+			if baseDN in config: 
+				baseDN = config['baseDN']
+			if domainName in config:
+				domainName = config['domainName']
 			print ('--- List of kwargs --')
-			for item in kwargs.values():
+			for item in config.values():
 				print(item)
 		except:
 			print('There was an error with the parameters.')
