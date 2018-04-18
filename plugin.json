@@ -89,7 +89,6 @@
       }
     }
   ],
-  {
    "configUI" :{
         "displayName": "OpenDJ Plugin",
         "properties" : [
@@ -105,9 +104,7 @@
 			{ "key" : "baseDN", "displayName": "baseDN", "displayOrder": 10, "displayHint": "cn=Replication,cn=monitor" },
             { "key" : "domainName", "displayName": "Domain Name", "displayOrder": 11, "displayHint": "dc=example,dc=com" }
                 ]
-         }
    },
-   {
     "properties" : [
         { "key" : "hostName", "type" :  "String", "defaultValue" : "hostname.example.com" },
         { "key" : "userName", "type" :  "String" },
@@ -120,6 +117,5 @@
 		{ "key" : "bindPassword", "type" :  "String" },
 		{ "key" : "baseDN", "type" :  "String", "defaultValue" : "cn=Replication,cn=monitor" },
 		{ "key" : "domainName", "type" :  "String" }
-     ]
-   }
+   ]
 }
