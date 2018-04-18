@@ -5,14 +5,13 @@ OpenDJ Plugin for Dynatrace Saas/Managed
 This plugin is to provide metrics on the replication status of an OpenDJ system. 
 It uses the paramiko library to ssh to the openDJ host and run the ldapsearch command to pull back metrics.  
 		  
-# Needed Changes in opendj-plugin.py
-	1.) Change hostName variable
-	2.) Change hostUserName variable
-	3.) Change userPassword variable 
-	4.) Replace base64 version of the host key for verification purposes
-	5.) For pgi_id change the Process Name to OpenDJ Process
-	6.) Change path of "cd" linux command to correct location for ldapsearch 
-	7.) Make sure bindDN, baseDN and bindPassword are correct
+# Config For These Done in Dynatrace UI
+	1.) Host Name
+	2.) User Name
+	3.) User Password or Private Key Location 
+	4.) Host Key Verification if doing Password Auth
+	5.) Path to ldapsearch command  
+	6.) ldapPort, bindDN, bindPassword, baseDN, and domain-name 
 	
 # Metrics Provided 
 	lost-connections 
