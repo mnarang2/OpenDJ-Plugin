@@ -12,6 +12,12 @@ class OpenDJPlugin(BasePlugin):
 		pathToKey = ""
 		hostKey = ""
 		key = ""
+		pathToLDAPSearch = ""
+		ldapPort = "1389"
+		bindDN = "cn=Directory Manager"
+		bindPassword = ""
+		baseDN = "cn=Replication,cn=monitor"
+		domainName = "dc=example,dc=com"
 		
 		#add in variable values from kwargs
 		try:
@@ -25,8 +31,21 @@ class OpenDJPlugin(BasePlugin):
 				pathToKey = kwargs['pathToKey']
 			if 'hostKey' in kwargs:
 				hostKey = kwargs['hostKey']
+			if 'pathToLDAPSearch' in kwargs:
+				pathToLDAPSearch = kwargs['pathToLDAPSearch']
+			if 'ldapPort' in kwargs:
+				ldapPort = kwargs['ldapPort']
+			if bindDN in kwargs:
+				bindDN = kwargs['bindDN']
+			if bindPassword in kwargs:
+				bindPassword = kwargs['bindPassword']
+			if baseDN in kwargs: 
+				baseDN = kwargs['baseDN']
+			if domainName in kwargs:
+				domainName = kwargs['domainName']
+			print ('--- List of kwargs --')
 			for item in kwargs.values():
-				print item
+				print(item)
 		except:
 			print('There was an error with the parameters.')
 		
@@ -38,7 +57,7 @@ class OpenDJPlugin(BasePlugin):
 		key_mapper = ["lost-connections", "received-updates", "sent-updates", "replayed-updates", "pending-updates", "replayed-updates-ok", "resolved-modify-conflicts", "resolved-naming-conflicts", "unresolved-naming-conflicts", "missing-changes", "approximate-delay"]
 		
 		#connect to host
-		client = paramiko.SSHClient()		
+		client = paramiko.SSHClient()
 		try:
 			if userName != "" and hostName != "":
 				if pathToKey != "":
@@ -56,9 +75,10 @@ class OpenDJPlugin(BasePlugin):
 		except:
 			print('Generic Could not Connect to Host')
 		
+		linuxCommand = 'cd ' + pathToLDAPSearch + ' ; ./ldapsearch --port ' + ldapPort + ' --bindDN "' + bindDN + '" --bindPassword ' + bindPassword + ' --baseDN "' + baseDN + '" --searchScope sub "(&(objectClass=*)(domain-name=' + domainName + '))" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay'
 	
 		#first move to correct directory then run ldapsearch command and pipe all data to stdin, stdout, & stderr
-		stdin, stdout, stderr = client.exec_command('cd /path/to/ldapsearch ; ./ldapsearch --port 1389 --bindDN "cn=Directory Manager" --bindPassword password --baseDN "cn=Replication,cn=monitor" --searchScope sub "(&(objectClass=*)(domain-name=dc=example,dc=com))" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay')
+		stdin, stdout, stderr = client.exec_command(linuxCommand)
 		
 		
 		#for each line check to see if it contains a wanted variable
@@ -67,7 +87,7 @@ class OpenDJPlugin(BasePlugin):
 			measureValue = strArray[1].strip(' ')
 			
 			if strArray[0] in key_mapper
+				print(strArray[0] + ' : ' + strArray[1])
 				self.results_builder.absolute(key=strArray[0], value=measureValue, entity_id=pgi_id) # send measure
-		
 		client.close()
 		
