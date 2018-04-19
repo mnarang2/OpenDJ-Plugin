@@ -17,7 +17,6 @@ class OpenDJPlugin(BasePlugin):
 		bindDN = "cn=Directory Manager"
 		bindPassword = ""
 		baseDN = "cn=Replication,cn=monitor"
-		domainName = "dc=example,dc=com"
 		
 		config = kwargs['config']
 		#add in variable values from kwargs
@@ -36,14 +35,8 @@ class OpenDJPlugin(BasePlugin):
 				pathToLDAPSearch = config['pathToLDAPSearch']
 			if 'ldapPort' in config:
 				ldapPort = config['ldapPort']
-			if bindDN in config:
-				bindDN = config['bindDN']
 			if bindPassword in config:
 				bindPassword = config['bindPassword']
-			if baseDN in config: 
-				baseDN = config['baseDN']
-			if domainName in config:
-				domainName = config['domainName']
 			print ('--- List of kwargs --')
 			for item in config.values():
 				print(item)
@@ -76,7 +69,7 @@ class OpenDJPlugin(BasePlugin):
 		except:
 			print('Generic Could not Connect to Host')
 		
-		linuxCommand = 'cd ' + pathToLDAPSearch + ' ; ./ldapsearch --port ' + ldapPort + ' --bindDN "' + bindDN + '" --bindPassword ' + bindPassword + ' --baseDN "' + baseDN + '" --searchScope sub "(&(objectClass=*)(domain-name=' + domainName + '))" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay'
+		linuxCommand = 'cd ' + pathToLDAPSearch + ' ; ./ldapsearch --port ' + ldapPort + ' --bindDN "' + bindDN + '" --bindPassword ' + bindPassword + ' --baseDN "' + baseDN + '" --searchScope sub "(objectClass=*)" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay'
 	
 		#first move to correct directory then run ldapsearch command and pipe all data to stdin, stdout, & stderr
 		stdin, stdout, stderr = client.exec_command(linuxCommand)

@@ -1,4 +1,4 @@
-# OpenDJ-Plugin
+# OpenDJ Replication Status Plugin
 OpenDJ Plugin for Dynatrace Saas/Managed
 
 # Purpose
@@ -11,7 +11,7 @@ It uses the paramiko library to ssh to the openDJ host and run the ldapsearch co
 	3.) User Password or Private Key Location 
 	4.) Host Key Verification if doing Password Auth
 	5.) Path to ldapsearch command  
-	6.) ldapPort, bindDN, bindPassword, baseDN, and domain-name 
+	6.) ldapPort & bindPassword for ldapsearch command
 	
 # Metrics Provided 
 	lost-connections 
