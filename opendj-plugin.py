@@ -6,6 +6,7 @@ from ruxit.api.snapshot import pgi_name
 class OpenDJPlugin(BasePlugin):
 	def query(self, **kwargs):
 		#initialize variables
+		processName = "org.opends.server.core.DirectoryServer"
 		hostName = "null"
 		userName = "null"
 		userPassword = "null"
@@ -21,6 +22,8 @@ class OpenDJPlugin(BasePlugin):
 		config = kwargs['config']
 		#add in variable values from kwargs
 		try:
+			if processName in config:
+				processName = config['processName']
 			if 'hostName' in config:
 				hostName = config['hostName']
 			if 'userName' in config:
@@ -44,7 +47,7 @@ class OpenDJPlugin(BasePlugin):
 			print('There was an error with the parameters.')
 		
 		# Find Dynatrace pgi_id from oneAgent monitoring of OpenDJ
-		pgi = self.find_single_process_group(pgi_name('OpenDJ'))
+		pgi = self.find_single_process_group(pgi_name(processName))
 		pgi_id = pgi.group_instance_id
 		
 		#these are the metrics the values will be captured for
