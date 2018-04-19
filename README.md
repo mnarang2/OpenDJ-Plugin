@@ -2,7 +2,7 @@
 OpenDJ Plugin for Dynatrace Saas/Managed
 
 # Purpose
-This plugin is to provide metrics on the replication status of an OpenDJ system. 
+This plugin is to provide metrics on the replication status of an OpenDJ system running on linux. 
 It uses the paramiko library to ssh to the openDJ host and run the ldapsearch command to pull back metrics.  
 		  
 # Config For These Done in Dynatrace UI
@@ -28,6 +28,7 @@ It uses the paramiko library to ssh to the openDJ host and run the ldapsearch co
 	
 # See this page for a description of the metrics
 https://backstage.forgerock.com/knowledge/kb/article/a54492144#monitoring
+https://backstage.forgerock.com/knowledge/kb/article/a93021227
 
 # Paramiko Documentation
 http://docs.paramiko.org

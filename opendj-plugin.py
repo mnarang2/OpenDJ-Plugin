@@ -69,11 +69,16 @@ class OpenDJPlugin(BasePlugin):
 		except:
 			print('Generic Could not Connect to Host')
 		
-		linuxCommand = 'cd ' + pathToLDAPSearch + ' ; ./ldapsearch --port ' + ldapPort + ' --bindDN "' + bindDN + '" --bindPassword ' + bindPassword + ' --baseDN "' + baseDN + '" --searchScope sub "(objectClass=*)" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay'
+		if ldapPort != "" and bindPassword != "":
+			linuxCommand = 'cd ' + pathToLDAPSearch + ' ; ./ldapsearch --port ' + ldapPort + ' --bindDN "' + bindDN + '" --bindPassword ' + bindPassword + ' --baseDN "' + baseDN + '" --searchScope sub "(objectClass=*)" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay'
+		else
+			print('Issue with LDAP Port or Bind Password')
 	
-		#first move to correct directory then run ldapsearch command and pipe all data to stdin, stdout, & stderr
-		stdin, stdout, stderr = client.exec_command(linuxCommand)
-		
+		try: 
+			#first move to correct directory then run ldapsearch command and pipe all data to stdin, stdout, & stderr
+			stdin, stdout, stderr = client.exec_command(linuxCommand)
+		except:
+			print('Issue with running linux ldapsearch command')
 		
 		#for each line check to see if it contains a wanted variable
 		for line in stdout:
