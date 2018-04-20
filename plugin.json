@@ -79,16 +79,178 @@
         "key": "missing-changes",
         "unit": "Count",
 		"displayname":"Missing Changes"
-      }
+      },
+	   "alert_settings": [
+	     {
+		  "alert_id" : "custom_replication_missing_changes",
+          "event_type": "ERROR_EVENT",
+          "event_name": "Replication Missing Changes",
+          "description": "There are {severity} {metricname}, which is {alert_condition} the threshold of {threshold}",
+          "threshold": 1,
+          "alert_condition": "ABOVE",
+          "samples":3,
+          "violating_samples":2,
+          "dealerting_samples":3
+		 }
+		]
     },
 	{
       "timeseries": {
         "key": "approximate-delay",
         "unit": "MilliSecond",
 		"displayname":"Approximate Delay"
-      }
+      },
+	   "alert_settings": [
+	     {
+		  "alert_id" : "custom_replication_approximate_delay",
+          "event_type": "PERFORMANCE_EVENT",
+          "event_name": "High Replication Approximate Delay",
+          "description": "The {metricname} of {severity} is {alert_condition} the threshold of {threshold}",
+          "threshold": 500,
+          "alert_condition": "ABOVE",
+          "samples":3,
+          "violating_samples":2,
+          "dealerting_samples":3
+		 }
+		]
     }
   ],
+   "ui": {
+       "charts" : [
+	     {
+           "group": "Replication Statistics",
+           "title": "Lost Connections",
+           "series": [
+               {
+                 "key": "lost-connections",
+                 "aggregation": "SUM",
+                 "displayname": "Lost Connections",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Statistics",
+           "title": "Missing Changes",
+           "series": [
+               {
+                 "key": "missing-changes",
+                 "aggregation": "SUM",
+                 "displayname": "Missing Changes",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Statistics",
+           "title": "Approximate Delay",
+           "series": [
+               {
+                 "key": "approximate-delay",
+                 "aggregation": "SUM",
+                 "displayname": "Approximate Delay",
+                 "seriestype": "line"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Updates",
+           "title": "Received Updates",
+           "series": [
+               {
+                 "key": "received-updates",
+                 "aggregation": "SUM",
+                 "displayname": "Received Updates",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Updates",
+           "title": "Sent Updates",
+           "series": [
+               {
+                 "key": "sent-updates",
+                 "aggregation": "SUM",
+                 "displayname": "Sent Updates",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Updates",
+           "title": "Replayed Updates",
+           "series": [
+               {
+                 "key": "replayed-updates",
+                 "aggregation": "SUM",
+                 "displayname": "Replayed Updates",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Updates",
+           "title": "Pending Updates",
+           "series": [
+               {
+                 "key": "replayed-updates-ok",
+                 "aggregation": "SUM",
+                 "displayname": "Replayed Updates OK",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Updates",
+           "title": "Pending Updates",
+           "series": [
+               {
+                 "key": "pending-updates",
+                 "aggregation": "SUM",
+                 "displayname": "Pending Updates",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Conflicts",
+           "title": "Unresolved Naming Conflicts",
+           "series": [
+               {
+                 "key": "unresolved-naming-conflicts",
+                 "aggregation": "SUM",
+                 "displayname": "Unresolved Naming Conflicts",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Conflicts",
+           "title": "Resolved Naming Conflicts",
+           "series": [
+               {
+                 "key": "resolved-naming-conflicts",
+                 "aggregation": "SUM",
+                 "displayname": "Resolved Naming Conflicts",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+	     {
+           "group": "Replication Conflicts",
+           "title": "Resolved Modify Conflicts",
+           "series": [
+               {
+                 "key": "resolved-modify-conflicts",
+                 "aggregation": "SUM",
+                 "displayname": "Resolved Modify Conflicts",
+                 "seriestype": "bar"
+               }
+            ]
+         },
+      ]
+   },
    "configUI" :{
         "displayName": "OpenDJ Replication Status Plugin",
         "properties" : [
