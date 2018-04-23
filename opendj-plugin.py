@@ -7,7 +7,7 @@ class OpenDJPlugin(BasePlugin):
 	def query(self, **kwargs):
 		#initialize variables
 		processName = "org.opends.server.core.DirectoryServer"
-		hostName = "null"
+		hostName = "localhost"
 		userName = "null"
 		userPassword = "null"
 		pathToKey = ""
@@ -24,8 +24,6 @@ class OpenDJPlugin(BasePlugin):
 		try:
 			if processName in config:
 				processName = config['processName']
-			if 'hostName' in config:
-				hostName = config['hostName']
 			if 'userName' in config:
 				userName = config['userName']
 			if 'userPassword' in config:

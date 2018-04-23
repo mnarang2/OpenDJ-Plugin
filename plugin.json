@@ -255,19 +255,17 @@
         "displayName": "OpenDJ Replication Status Plugin",
         "properties" : [
 			{ "key" : "processName", "displayName": "OpenDJ Process Name", "displayOrder": 1 },
-            { "key" : "hostName", "displayName": "Host Name", "displayOrder": 2, "displayHint": "hostname.example.com" },
-            { "key" : "userName", "displayName": "User Name", "displayOrder": 3 },
-			{ "key" : "userPassword", "displayName": "User Password", "displayOrder": 4, "displayHint": "Leave Blank to use Private Key" },
-			{ "key" : "pathToKey", "displayName": "Linux Path To Private Key", "displayOrder": 5, "displayHint": "/home/user/private.pem" },
-			{ "key" : "hostKey", "displayName": "Base64 Host Key", "displayOrder": 6 },
-			{ "key" : "pathToLDAPSearch", "displayName": "Linux Path to ldapsearch executable", "displayOrder": 7, "displayHint": "/opt/opendj/" },
-			{ "key" : "ldapPort", "displayName": "LDAP Port", "displayOrder": 8, "displayHint": "1389" },
-			{ "key" : "bindPassword", "displayName": "Bind Password", "displayOrder": 9 }
+            { "key" : "userName", "displayName": "User Name", "displayOrder": 2 },
+			{ "key" : "userPassword", "displayName": "User Password", "displayOrder": 3, "displayHint": "Leave Blank to use Private Key" },
+			{ "key" : "pathToKey", "displayName": "Linux Path To Private Key", "displayOrder": 4, "displayHint": "/home/user/private.pem" },
+			{ "key" : "hostKey", "displayName": "Base64 Host Key", "displayOrder": 5 },
+			{ "key" : "pathToLDAPSearch", "displayName": "Linux Path to ldapsearch executable", "displayOrder": 6, "displayHint": "/opt/opendj/" },
+			{ "key" : "ldapPort", "displayName": "LDAP Port", "displayOrder": 7, "displayHint": "1389" },
+			{ "key" : "bindPassword", "displayName": "Bind Password", "displayOrder": 8 }
                 ]
    },
     "properties" : [
 		{ "key" : "processName", "type" :  "String" , "defaultValue" : "org.opends.server.core.DirectoryServer"},
-        { "key" : "hostName", "type" :  "String" },
         { "key" : "userName", "type" :  "String" },
 		{ "key" : "userPassword", "type" :  "PASSWORD" },
 		{ "key" : "pathToKey", "type" :  "String" },
