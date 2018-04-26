@@ -259,7 +259,7 @@
 			{ "key" : "userPassword", "displayName": "User Password", "displayOrder": 3, "displayHint": "Leave Blank to use Private Key" },
 			{ "key" : "pathToKey", "displayName": "Linux Path To Private Key", "displayOrder": 4, "displayHint": "/home/user/private.pem" },
 			{ "key" : "hostKey", "displayName": "Base64 Host Key", "displayOrder": 5 },
-			{ "key" : "pathToLDAPSearch", "displayName": "Linux Path to ldapsearch executable", "displayOrder": 6, "displayHint": "/opt/opendj/" },
+			{ "key" : "pathToLDAPSearch", "displayName": "Linux Path to ldapsearch executable", "displayOrder": 6, "displayHint": "/opt/opendj/bin/" },
 			{ "key" : "ldapPort", "displayName": "LDAP Port", "displayOrder": 7, "displayHint": "1389" },
 			{ "key" : "bindPassword", "displayName": "Bind Password", "displayOrder": 8 }
                 ]
@@ -270,7 +270,7 @@
 		{ "key" : "userPassword", "type" :  "PASSWORD" },
 		{ "key" : "pathToKey", "type" :  "String" },
 		{ "key" : "hostKey", "type" :  "String" },
-		{ "key" : "pathToLDAPSearch", "type" :  "String" },
+		{ "key" : "pathToLDAPSearch", "type" :  "String" , "defaultValue" : "/opt/opendj/bin"},
 		{ "key" : "ldapPort", "type" :  "String" , "defaultValue" : "1389"},
 		{ "key" : "bindPassword", "type" :  "PASSWORD" }
    ]

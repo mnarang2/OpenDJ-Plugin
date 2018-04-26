@@ -13,7 +13,7 @@ class OpenDJPlugin(BasePlugin):
 		pathToKey = ""
 		hostKey = "null"
 		key = ""
-		pathToLDAPSearch = ""
+		pathToLDAPSearch = "/opt/opendj/bin"
 		ldapPort = "1389"
 		bindDN = "cn=Directory Manager"
 		bindPassword = ""
