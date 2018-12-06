@@ -65,7 +65,7 @@ class OpenDJPlugin(BasePlugin):
 					##Using host key verification & password auth to connect
 					key = paramiko.RSAKey(data=base64.b64decode(hostKey)) #base64 RSA host key for verification
 					client.get_host_keys().add(hostName, 'ssh-rsa', key)
-					client.connect(hostName, username=userName, password=userPassword)
+					client.connect(hostName, username=userName, password=userPassword, timeout=30)
 			else :
 				self.logger.info ('No User or Host provided - Could not Connect') 
 		except:
@@ -90,5 +90,11 @@ class OpenDJPlugin(BasePlugin):
 			if strArray[0] in key_mapper :
 				self.logger.info(strArray[0] + ' : ' + strArray[1])
 				self.results_builder.absolute(key=strArray[0], value=measureValue, entity_id=pgi_id) # send measure
-		client.close()
 		
+		try: 
+			client.close()
+		except:
+			self.logger.info("Issue closing client connection")
+		finally:
+			if client:
+				client.close()
