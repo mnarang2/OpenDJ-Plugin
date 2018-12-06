@@ -39,11 +39,11 @@ class OpenDJPlugin(BasePlugin):
 				ldapPort = config['ldapPort']
 			if bindPassword in config:
 				bindPassword = config['bindPassword']
-			print ('--- List of kwargs --')
+			self.logger.info ('--- List of kwargs --')
 			for item in config.values():
-				print(item)
+				self.logger.info(item)
 		except:
-			print('There was an error with the parameters.')
+			self.logger.info('There was an error with the parameters.')
 		
 		# Find Dynatrace pgi_id from oneAgent monitoring of OpenDJ
 		pgi = self.find_single_process_group(pgi_name(processName))
@@ -67,20 +67,20 @@ class OpenDJPlugin(BasePlugin):
 					client.get_host_keys().add(hostName, 'ssh-rsa', key)
 					client.connect(hostName, username=userName, password=userPassword)
 			else :
-				print ('No User or Host provided - Could not Connect') 
+				self.logger.info ('No User or Host provided - Could not Connect') 
 		except:
-			print('Generic Could not Connect to Host')
+			self.logger.info('Generic Could not Connect to Host')
 		
 		if ldapPort != "" and bindPassword != "":
 			linuxCommand = 'cd ' + pathToLDAPSearch + ' ; ./ldapsearch --port ' + ldapPort + ' --bindDN "' + bindDN + '" --bindPassword ' + bindPassword + ' --baseDN "' + baseDN + '" --searchScope sub "(objectClass=*)" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay'
 		else :
-			print('Issue with LDAP Port or Bind Password')
+			self.logger.info('Issue with LDAP Port or Bind Password')
 	
 		try: 
 			#first move to correct directory then run ldapsearch command and pipe all data to stdin, stdout, & stderr
 			stdin, stdout, stderr = client.exec_command(linuxCommand)
 		except:
-			print('Issue with running linux ldapsearch command')
+			self.logger.info('Issue with running linux ldapsearch command')
 		
 		#for each line check to see if it contains a wanted variable
 		for line in stdout:
@@ -88,7 +88,7 @@ class OpenDJPlugin(BasePlugin):
 			measureValue = strArray[1].strip(' ')
 			
 			if strArray[0] in key_mapper :
-				print(strArray[0] + ' : ' + strArray[1])
+				self.logger.info(strArray[0] + ' : ' + strArray[1])
 				self.results_builder.absolute(key=strArray[0], value=measureValue, entity_id=pgi_id) # send measure
 		client.close()
 		
