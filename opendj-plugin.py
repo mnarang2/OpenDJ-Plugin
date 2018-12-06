@@ -1,5 +1,6 @@
 import base64
 import paramiko
+import logging
 from ruxit.api.base_plugin import BasePlugin
 from ruxit.api.snapshot import pgi_name
 
@@ -65,14 +66,14 @@ class OpenDJPlugin(BasePlugin):
 					key = paramiko.RSAKey(data=base64.b64decode(hostKey)) #base64 RSA host key for verification
 					client.get_host_keys().add(hostName, 'ssh-rsa', key)
 					client.connect(hostName, username=userName, password=userPassword)
-			else 
+			else :
 				print ('No User or Host provided - Could not Connect') 
 		except:
 			print('Generic Could not Connect to Host')
 		
 		if ldapPort != "" and bindPassword != "":
 			linuxCommand = 'cd ' + pathToLDAPSearch + ' ; ./ldapsearch --port ' + ldapPort + ' --bindDN "' + bindDN + '" --bindPassword ' + bindPassword + ' --baseDN "' + baseDN + '" --searchScope sub "(objectClass=*)" \* + lost-connections received-updates sent-updates replayed-updates pending-updates replayed-updates-ok resolved-modify-conflicts resolved-naming-conflicts unresolved-naming-conflicts missing-changes approximate-delay'
-		else
+		else :
 			print('Issue with LDAP Port or Bind Password')
 	
 		try: 
@@ -83,10 +84,10 @@ class OpenDJPlugin(BasePlugin):
 		
 		#for each line check to see if it contains a wanted variable
 		for line in stdout:
-			strArray = line.split(:)
+			strArray = line.split(":")
 			measureValue = strArray[1].strip(' ')
 			
-			if strArray[0] in key_mapper
+			if strArray[0] in key_mapper :
 				print(strArray[0] + ' : ' + strArray[1])
 				self.results_builder.absolute(key=strArray[0], value=measureValue, entity_id=pgi_id) # send measure
 		client.close()
