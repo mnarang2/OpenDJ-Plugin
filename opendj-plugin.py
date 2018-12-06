@@ -1,6 +1,6 @@
 import base64
 import paramiko
-import logging
+import logging 
 from ruxit.api.base_plugin import BasePlugin
 from ruxit.api.snapshot import pgi_name
 
